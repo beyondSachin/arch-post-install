@@ -1,0 +1,34 @@
+[[manager.prepend_keymap]]
+on = ["o"]
+run = "open --interactive"
+desc = "Open with (Predefined)"
+
+[[manager.prepend_keymap]]
+on = ["O"]
+run = 'shell --block --confirm "read -p \"Open with (Manual): \" cmd; $cmd \"$@\""'
+desc = "Open with (Manual command)"
+
+[[manager.prepend_keymap]]
+on = ["f"]
+run = "plugin fzf"
+desc = "Fuzzy find"
+
+[[manager.prepend_keymap]]
+on = ["s"]
+run = "plugin ripgrep"
+desc = "Search content"
+
+[[manager.prepend_keymap]]
+on = ["z"]
+run = "plugin zoxide"
+desc = "Jump directories"
+
+[[manager.prepend_keymap]]
+on = ["g", "i"]
+run = "plugin lazygit"
+desc = "Git UI"
+
+[[manager.prepend_keymap]]
+on = ["g", "g"]
+run = "cd ~"
+desc = "Go home"

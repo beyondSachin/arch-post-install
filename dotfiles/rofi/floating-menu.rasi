@@ -1,0 +1,97 @@
+/**
+ * Floating Quick Menu — Rofi Theme
+ * Compact, centered floating panel with icon-style items
+ * Author: Sachin
+ */
+
+@import "~/.config/rofi/config.rasi"
+
+
+
+configuration {
+    show-icons:       false;
+    hover-select:     true;
+    me-select-entry:  "";
+    me-accept-entry:  "MousePrimary";
+    fixed-num-lines:  true;
+}
+
+window {
+    width:            380px;
+    border:           2px solid;
+    border-radius:    20px;
+    border-color:     #7AA2F733;
+    padding:          0;
+    background-color: @bg;
+    location:         center;
+    anchor:           center;
+    x-offset:         0;
+    y-offset:         0;
+}
+
+mainbox {
+    padding:          24px;
+    spacing:          16px;
+    background-color: transparent;
+    children:         [ "message", "listview" ];
+}
+
+message {
+    padding:          12px 16px;
+    border-radius:    14px;
+    background-color: @bg-card;
+}
+
+textbox {
+    background-color: transparent;
+    text-color:       @accent;
+    font:             "JetBrainsMono Nerd Font Bold 13";
+    horizontal-align: 0.5;
+}
+
+listview {
+    columns:          1;
+    lines:            4;
+    spacing:          8px;
+    padding:          0;
+    fixed-height:     true;
+    fixed-columns:    true;
+    background-color: transparent;
+    border:           0;
+    scrollbar:        false;
+    cycle:            true;
+    dynamic:          false;
+}
+
+element {
+    orientation:      horizontal;
+    padding:          14px 18px;
+    spacing:          14px;
+    border-radius:    14px;
+    background-color: @bg-card;
+    cursor:           pointer;
+}
+
+element normal.normal {
+    background-color: @bg-card;
+    text-color:       @fg;
+}
+
+element selected.normal {
+    background-color: @bg-hover;
+    border:           2px solid;
+    border-color:     @accent;
+    text-color:       @accent;
+}
+
+element-icon {
+    size:             0px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    font:             "JetBrainsMono Nerd Font 13";
+    vertical-align:   0.5;
+    horizontal-align: 0.0;
+}

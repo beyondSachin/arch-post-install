@@ -1,0 +1,15 @@
+/* Waybar Light Colors (Latte) */
+@define-color bg-bar rgba(239, 241, 245, 0.85); /* base */
+@define-color bg-module rgba(230, 233, 239, 0.95); /* mantle */
+@define-color accent-blue #1e66f5;
+@define-color accent-purple #ea76cb;
+@define-color accent-green #40a02b;
+@define-color accent-red #d20f39;
+@define-color accent-orange #fe640b;
+@define-color foreground #4c4f69;
+
+@define-color base #eff1f5;
+@define-color mantle #e6e9ef;
+@define-color crust #dce0e8;
+@define-color text #4c4f69;
+@define-color subtext0 #6c6f85;

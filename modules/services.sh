@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# ─────────────────────────────────────────────
+# services.sh — Systemd service management
+# ─────────────────────────────────────────────
+
+enable_services_from_config() {
+    # Usage: enable_services_from_config <config.yaml>
+    local config="$1"
+
+    if [[ ! -f "${config}" ]]; then
+        log_error "Config file not found: ${config}"
+        return 1
+    fi
+
+    local -a services=()
+    while IFS= read -r svc; do
+        [[ -n "${svc}" ]] && services+=("${svc}")
+    done < <(yaml_list "${config}" "services")
+
+    if [[ ${#services[@]} -eq 0 ]]; then
+        log_warn "No services found in ${config}"
+        return 0
+    fi
+
+    log_step "Enabling ${#services[@]} services"
+
+    for svc in "${services[@]}"; do
+        if systemctl list-unit-files "${svc}.service" &>/dev/null; then
+            sudo systemctl enable --now "${svc}" 2>&1 | tee -a "${LOG_FILE}"
+            log_success "Enabled: ${svc}"
+        elif systemctl list-unit-files "${svc}.timer" &>/dev/null; then
+            sudo systemctl enable --now "${svc}.timer" 2>&1 | tee -a "${LOG_FILE}"
+            log_success "Enabled timer: ${svc}"
+        else
+            log_warn "Unit not found: ${svc} (skipped)"
+        fi
+    done
+}
+
+enable_base_services() {
+    log_step "Enabling base services"
+    enable_services_from_config "${CONFIG_DIR}/base.yaml"
+}

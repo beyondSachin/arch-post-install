@@ -1,0 +1,53 @@
+# ─────────────────────────────────────────────
+# Base Configuration — Arch Post-Install
+# Common packages & settings for ALL profiles
+# ─────────────────────────────────────────────
+
+system:
+  hostname: arch-box
+  timezone: Asia/Kolkata
+  locale: en_US.UTF-8
+  keymap: us
+
+packages:
+  pacman:
+    - base-devel
+    - git
+    - curl
+    - wget
+    - unzip
+    - zip
+    - p7zip
+    - unar
+    - jq
+    - yq
+    - htop
+    - btop
+    - fastfetch
+    - man-db
+    - man-pages
+    - openssh
+    - rsync
+    - reflector
+    - pacman-contrib
+    - xdg-utils
+    - xdg-user-dirs
+    - polkit
+
+  aur: []
+
+services:
+  - NetworkManager
+  - sshd
+  - reflector.timer
+  - fstrim.timer
+
+user:
+  shell: /bin/bash
+  groups:
+    - wheel
+    - video
+    - input
+    - audio
+    - storage
+    - network

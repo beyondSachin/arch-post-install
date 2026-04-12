@@ -1,0 +1,19 @@
+configuration {
+  modi: "window,drun,run,ssh";
+  font: "JetBrainsMono Nerd Font 14";
+  show-icons: true;
+  icon-theme: "Papirus";
+}
+
+@import "~/.config/rofi/colors.rasi"
+
+* {
+    background-color: transparent;
+    text-color:       @fg;
+    border-color:     @bg-card;
+    spacing:          0;
+    padding:          0;
+    margin:           0;
+}
+
+@theme "~/.config/rofi/modern.rasi"

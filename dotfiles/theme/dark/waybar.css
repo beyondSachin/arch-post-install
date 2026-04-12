@@ -1,0 +1,15 @@
+/* Waybar Dark Colors (Macchiato) */
+@define-color bg-bar rgba(30, 30, 46, 0.85); /* base */
+@define-color bg-module rgba(36, 39, 58, 0.9); /* mantle */
+@define-color accent-blue #8aadf4;
+@define-color accent-purple #c6a0f6;
+@define-color accent-green #a6da95;
+@define-color accent-red #ed8796;
+@define-color accent-orange #f5a97f;
+@define-color foreground #cad3f5;
+
+@define-color base #1e1e2e;
+@define-color mantle #24273a;
+@define-color crust #181825;
+@define-color text #cad3f5;
+@define-color subtext0 #a5adcb;

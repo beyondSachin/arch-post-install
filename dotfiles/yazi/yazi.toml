@@ -1,0 +1,80 @@
+# ~/.config/yazi/yazi.toml
+
+[manager]
+ratio = [1, 3, 4]
+sort_by = "natural"
+sort_sensitive = false
+linemode = "size"
+show_hidden = true
+scrolloff = 8
+
+[preview]
+wrap = "yes"
+tab_size = 2
+max_width = 600
+max_height = 900
+script = "~/.config/yazi/preview.sh" 
+
+[opener]
+
+text = [
+  { run = 'nvim "$@"', desc = "Neovim" },
+  { run = 'antigravity "$@"', desc = "Antigravity" },
+]
+
+image = [
+  { run = 'imv "$@"', desc = "imv" },
+  { run = 'feh "$@"', desc = "feh" },
+]
+
+video = [
+  { run = 'mpv "$@"', desc = "mpv" },
+]
+
+pdf = [
+  { run = 'evince "$@"', desc = "Evince" },
+]
+
+archive = [
+  { run = 'unar "$@"', desc = "Extract here" },
+]
+
+[open]
+rules = [
+  { mime = "text/*", use = "text" },
+  { mime = "image/*", use = "image" },
+  { mime = "video/*", use = "video" },
+  { mime = "application/pdf", use = "pdf" },
+  { mime = "application/*zip", use = "archive" },
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

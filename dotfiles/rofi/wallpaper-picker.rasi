@@ -1,0 +1,110 @@
+/* wallpaper-picker.rasi - grid de miniaturas para selección de wallpaper */
+@import "~/.config/rofi/config.rasi"
+
+@import "~/.config/rofi/colors.rasi"
+
+* {
+    background-color: transparent;
+    text-color:       @fg;
+    border-color:     transparent;
+    spacing:          0;
+    padding:          0;
+    margin:           0;
+}
+
+configuration {
+    show-icons: true;
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+}
+
+window {
+    width: 60%;
+    border: 0;
+    border-radius: 20px;
+    padding: 0;
+    background-color: @bg;
+    location: center;
+    anchor: center;
+}
+
+mainbox {
+    padding: 20px;
+    spacing: 15px;
+    background-color: transparent;
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    spacing:          10px;
+    padding:          10px 14px;
+    border-radius:    50px;
+    background-color: @bg-sel;
+    text-color:       @fg;
+    orientation:      horizontal;
+    children:         [ "textbox-prompt-colon", "entry" ];
+}
+
+textbox-prompt-colon {
+    expand:           false;
+    str:              "󰋩";
+    padding:          0px 8px 0px 4px;
+    background-color: transparent;
+    text-color:       @accent;
+    font:             "JetBrainsMono Nerd Font Mono 15";
+    vertical-align:   0.5;
+}
+
+entry {
+    background-color:  transparent;
+    text-color:        @fg;
+    cursor:            text;
+    placeholder:       "Search wallpaper...";
+    placeholder-color: @fg-dim;
+    font:              "JetBrains Mono 13";
+    vertical-align:    0.5;
+}
+
+listview {
+    columns: 4;
+    lines: 2;
+    spacing: 15px;
+    padding: 10px;
+    fixed-height: false;
+    fixed-columns: true;
+    background-color: transparent;
+    border: 0;
+}
+
+element {
+    orientation: vertical;
+    padding: 15px;
+    spacing: 10px;
+    border-radius: 15px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+element selected.normal {
+    background-color: @bg-sel;
+    border: 2px;
+    border-color: @accent;
+}
+
+element-icon {
+    size: 200px;
+    border-radius: 10px;
+    horizontal-align: 0.5;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    text-color: @fg;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+element selected.normal element-text {
+    text-color: @accent;
+}
