@@ -71,7 +71,8 @@ window#waybar {
 /* Specific Module Accents */
 #workspaces button {
     padding: 0 8px;
-    color: alpha(@foreground, 0.5);
+    color: alpha(@foreground, 0.4);
+    font-weight: normal;
     transition: all 0.3s ease;
 }
 
@@ -80,21 +81,23 @@ window#waybar {
     background: alpha(@accent-blue, 0.15);
     border-radius: 8px;
     box-shadow: inset 0 -1px @accent-blue;
-    font-weight: bold;
+    font-weight: 900;
 }
 
 #workspaces button.occupied {
     color: @foreground;
-    font-weight: bold;
+    font-weight: 800;
 }
 
 #workspaces button.urgent {
     color: @accent-red;
+    font-weight: 900;
 }
 
 #workspaces button:hover {
     background: alpha(@foreground, 0.1);
     border-radius: 8px;
+    color: @foreground;
 }
 
 #clock {
@@ -108,6 +111,38 @@ window#waybar {
 
 #pulseaudio.microphone {
     color: @accent-purple;
+}
+
+/* Audio Group & Sliders */
+#group-audio, #group-microphone {
+    padding: 0 10px;
+}
+
+#pulseaudio-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+#pulseaudio-slider trough {
+    min-height: 10px;
+    min-width: 80px;
+    border-radius: 5px;
+    background-color: alpha(@foreground, 0.1);
+    margin: 0 5px;
+}
+
+#pulseaudio-slider highlight {
+    min-height: 10px;
+    border-radius: 5px;
+    background-color: @accent-blue;
+}
+
+#pulseaudio-slider.microphone highlight {
+    background-color: @accent-purple;
 }
 
 #bluetooth {

@@ -1,182 +1,215 @@
 {
-    "layer": "bottom",
-    "position": "top",
-    "height": 44,
-    "margin-top": 4,
-    "margin-bottom": 0,
-    "margin-left": 10,
-    "margin-right": 10,
-    "spacing": 0,
-    "modules-left": [
-        "custom/arch",
-        "hyprland/workspaces",
-        "hyprland/window"
-    ],
-    "modules-center": [
-        "clock"
-    ],
-    "modules-right": [
-        "pulseaudio",
-        "pulseaudio#microphone",
-        "bluetooth",
-        "network",
-        "cpu",
-        "temperature",
-        "memory",
-        "battery",
-        "custom/language",
-        "group/tray"
-    ],
-    "custom/arch": {
-        "format": "<span font='16'></span>  <span font='11' weight='bold' rise='1000'>{}</span>",
-        "exec": "/home/sachin/.config/waybar/scripts/updates.sh",
-        "return-type": "json",
-        "interval": 600,
-        "tooltip": true,
-        "on-click": "rofi -show drun",
-        "on-click-right": "/home/sachin/.config/waybar/scripts/power_menu.sh"
+  "layer": "bottom",
+  "position": "top",
+  "height": 44,
+  "margin-top": 0,
+  "margin-bottom": 0,
+  "margin-left": 10,
+  "margin-right": 10,
+  "spacing": 0,
+  "modules-left": [
+    "custom/arch",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "group/audio",
+    "group/microphone",
+    "bluetooth",
+    "network",
+    "cpu",
+    "temperature",
+    "memory",
+    "battery",
+    "custom/language",
+    "group/tray"
+  ],
+  "custom/arch": {
+    "format": "<span font='16'></span>  <span font='11' weight='bold' rise='1000'>{}</span>",
+    "exec": "/home/sachin/.config/waybar/scripts/updates.sh",
+    "return-type": "json",
+    "interval": 600,
+    "tooltip": true,
+    "on-click": "rofi -show drun",
+    "on-click-right": "/home/sachin/.config/waybar/scripts/power_menu.sh"
+  },
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "active-only": false,
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "urgent": "",
+      "active": "",
+      "default": ""
     },
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "active-only": false,
-        "on-click": "activate",
-        "format": "{icon}",
-        "format-icons": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "urgent": "",
-            "active": "",
-            "default": ""
-        },
-        "persistent-workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": []
-        }
-    },
-    "hyprland/window": {
-        "format": " {title}",
-        "max-length": 40,
-        "separate-outputs": true
-    },
-    "group/tray": {
-        "orientation": "horizontal",
-        "modules": [
-            "custom/tray-toggler",
-            "tray"
-        ],
-        "drawer": {
-            "transition-duration": 500,
-            "transition-left-to-right": false
-        }
-    },
-    "custom/tray-toggler": {
-        "format": "",
-        "tooltip": false
-    },
-    "tray": {
-        "icon-size": 18,
-        "spacing": 10
-    },
-    "clock": {
-        "format": "{:L%H:%M  %a, %b %d}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-    "cpu": {
-        "format": " {usage}%",
-        "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e btop'",
-        "tooltip": false
-    },
-    "temperature": {
-        "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
-        "critical-threshold": 80,
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
-    },
-    "memory": {
-        "format": " {used:0.1f}GB / {total:0.1f}GB"
-    },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{icon} {time}",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
-    },
-    "network": {
-        "format-wifi": " ({signalStrength}%) ↑{bandwidthUpBits} ↓{bandwidthDownBits}",
-        "format-ethernet": " {ipaddr} 󰇶 {bandwidthUpBits} 󰇚 {bandwidthDownBits}",
-        "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e impala'",
-        "format-linked": " (No IP)",
-        "format-disconnected": "⚠ Disconnected",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "interval": 2
-    },
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-bluetooth": "{icon}󰂯 {volume}%",
-        "format-bluetooth-muted": " {icon}󰂯",
-        "format-muted": " {volume}%",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [
-                "",
-                "",
-                ""
-            ]
-        },
-        "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e wiremix'"
-    },
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
-        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
-        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
-        "scroll-step": 5
-    },
-    "bluetooth": {
-        "format": "",
-        "format-connected": " {num_connections}",
-        "format-disconnected": "󰂲",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e bluetui'"
-    },
-    "custom/language": {
-        "exec": "/home/sachin/.config/waybar/scripts/kb_layout.sh",
-        "return-type": "json",
-        "interval": 1,
-        "on-click": "hyprctl switchxkblayout all next",
-        "format": "{}"
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
     }
+  },
+  "hyprland/window": {
+    "format": " {title}",
+    "max-length": 40,
+    "separate-outputs": true
+  },
+  "group/audio": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "pulseaudio",
+      "pulseaudio/slider"
+    ]
+  },
+  "group/microphone": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "pulseaudio#microphone",
+      "pulseaudio/slider#microphone"
+    ]
+  },
+  "group/tray": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/tray-toggler",
+      "tray"
+    ],
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false
+    }
+  },
+  "custom/tray-toggler": {
+    "format": "",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
+  },
+  "clock": {
+    "format": "{:L%H:%M  %a, %b %d}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "cpu": {
+    "format": " {usage}%",
+    "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e btop'",
+    "tooltip": false
+  },
+  "temperature": {
+    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "memory": {
+    "format": " {used:0.1f}GB"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "network": {
+    "format-wifi": " ({signalStrength}%) ↑{bandwidthUpBits} ↓{bandwidthDownBits}",
+    "format-ethernet": " {ipaddr} 󰇶 {bandwidthUpBits} 󰇚 {bandwidthDownBits}",
+    "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e impala'",
+    "format-linked": " (No IP)",
+    "format-disconnected": "⚠ Disconnected",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "interval": 2
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon}󰂯 {volume}%",
+    "format-bluetooth-muted": " {icon}󰂯",
+    "format-muted": " {volume}%",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e wiremix'"
+  },
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+    "scroll-step": 5
+  },
+  "pulseaudio/slider#microphone": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal",
+    "device": "source"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-connected": " {num_connections}",
+    "format-disconnected": "󰂲",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e bluetui'"
+  },
+  "custom/language": {
+    "exec": "/home/sachin/.config/waybar/scripts/kb_layout.sh",
+    "return-type": "json",
+    "interval": 1,
+    "on-click": "hyprctl switchxkblayout all next",
+    "format": "{}"
+  }
 }

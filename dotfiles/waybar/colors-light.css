@@ -1,0 +1,25 @@
+/* Waybar Light Colors */
+@define-color bg-bar rgba(240, 240, 245, 0.9);
+@define-color bg-module rgba(220, 220, 230, 0.95);
+@define-color accent-blue #005fbc;
+@define-color accent-purple #6c429c;
+@define-color accent-green #006b2b;
+@define-color accent-red #c42b1c;
+@define-color accent-orange #9c4c00;
+@define-color foreground #1a1a1a;
+
+/* theme-changer colors - Lightened versions */
+@define-color base #ffffff;
+@define-color mantle #f0f0f0;
+@define-color crust #e0e0e0;
+@define-color surface0 #d0d0d0;
+@define-color surface1 #c0c0c0;
+@define-color overlay0 #b0b0b0;
+@define-color text #1a1a1a;
+@define-color subtext0 #4a4a4a;
+@define-color blue #005fbc;
+@define-color mauve #6c429c;
+@define-color red #c42b1c;
+@define-color green #006b2b;
+@define-color yellow #8b6200;
+@define-color peach #9c4c00;
