@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
-# ─────────────────────────────────────────────
-# services.sh — Systemd service management
-# ─────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+# Module: services.sh
+# Description: Manages Systemd units (services and timers).
+#              Automatically detects unit types and enables/starts them.
+# ──────────────────────────────────────────────────────────────────────────────
 
+# /**
+#  * enable_services_from_config()
+#  * Reads a YAML config and enables/starts systemd units.
+#  * @param {string} config - Path to the YAML config file.
+#  */
 enable_services_from_config() {
-    # Usage: enable_services_from_config <config.yaml>
     local config="$1"
 
     if [[ ! -f "${config}" ]]; then
@@ -38,6 +44,10 @@ enable_services_from_config() {
     done
 }
 
+# /**
+#  * enable_base_services()
+#  * Convenience function to enable core system services.
+#  */
 enable_base_services() {
     log_step "Enabling base services"
     enable_services_from_config "${CONFIG_DIR}/base.yaml"

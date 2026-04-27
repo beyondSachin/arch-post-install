@@ -1,15 +1,26 @@
 #!/usr/bin/env bash
 
-# ─────────────────────────────────────────────
-# packages.sh — Package installation module
-# ─────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+# Module: packages.sh
+# Description: Handles software installation via pacman and yay.
+#              Automatically detects already installed packages to skip them.
+# ──────────────────────────────────────────────────────────────────────────────
 
+# /**
+#  * is_installed()
+#  * Checks if a specific package is installed on the system.
+#  * @param {string} pkg - Package name.
+#  */
 is_installed() {
     pacman -Q "$1" &>/dev/null
 }
 
+# /**
+#  * install_packages_from_config()
+#  * Parses a YAML configuration file and installs listed pacman and AUR packages.
+#  * @param {string} config - Path to the YAML config file.
+#  */
 install_packages_from_config() {
-    # Usage: install_packages_from_config <config.yaml>
     local config="$1"
 
     if [[ ! -f "${config}" ]]; then
@@ -17,7 +28,7 @@ install_packages_from_config() {
         return 1
     fi
 
-    # ── Pacman packages ───────────────────────
+    # ── Pacman packages ───────────────────────────────────────────────────────
     local -a pacman_pkgs=()
     while IFS= read -r pkg; do
         [[ -n "${pkg}" && ! "${pkg}" =~ ^# ]] && pacman_pkgs+=("${pkg}")
@@ -49,7 +60,7 @@ install_packages_from_config() {
         log_warn "No pacman packages found in ${config}"
     fi
 
-    # ── AUR packages ──────────────────────────
+    # ── AUR packages ──────────────────────────────────────────────────────────
     local -a aur_pkgs=()
     while IFS= read -r pkg; do
         [[ -n "${pkg}" && ! "${pkg}" =~ ^# ]] && aur_pkgs+=("${pkg}")
@@ -81,6 +92,10 @@ install_packages_from_config() {
     fi
 }
 
+# /**
+#  * install_base_packages()
+#  * Convenience function to install core system packages.
+#  */
 install_base_packages() {
     log_step "Installing base packages"
     install_packages_from_config "${CONFIG_DIR}/base.yaml"

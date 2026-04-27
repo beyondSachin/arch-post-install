@@ -3,17 +3,33 @@ configuration {
   font: "JetBrainsMono Nerd Font 14";
   show-icons: true;
   icon-theme: "Papirus";
+  terminal: "alacritty";
+  drun-display-format: "{name}";
+  location: 0;
+  disable-history: false;
+  hide-scrollbar: true;
+  display-drun: "   Apps ";
+  display-run: "   Run ";
+  display-window: " 󰕰  Window ";
+  display-Network: " 󰤨  Network ";
+  sidebar-mode: true;
+  hover-select: true;
+  me-select-entry: "MousePrimary";
+  me-accept-entry: "!MousePrimary";
+  kb-mode-next: "Shift+Right,Control+Tab,Control+l";
+  kb-mode-previous: "Shift+Left,Control+Shift+Tab,Control+h";
+  kb-row-up: "Up,Control+k,Shift+Tab,Control+p";
+  kb-row-down: "Down,Control+j,Control+n";
+  kb-accept-entry: "Control+m,Return,KP_Enter";
+  kb-remove-to-eol: "Control+Shift+e";
+  kb-remove-char-back: "BackSpace";
+  kb-mode-complete: "";
+  kb-row-select: "";
 }
 
-@import "~/.config/rofi/colors.rasi"
+//@theme "/usr/share/rofi/themes/material.rasi"
 
-* {
-    background-color: transparent;
-    text-color:       @fg;
-    border-color:     @bg-card;
-    spacing:          0;
-    padding:          0;
-    margin:           0;
-}
+  /* Import dynamic colors */
+  @import "/home/sachin/.config/rofi/colors.rasi"
 
 @theme "~/.config/rofi/modern.rasi"

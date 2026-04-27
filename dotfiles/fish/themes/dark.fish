@@ -1,24 +1,19 @@
 # Dark theme colors for Fish
-set -g fish_color_normal d3dae3
-set -g fish_color_command 71f79f
-set -g fish_color_quote fdbc4b
-set -g fish_color_redirection 2187fc
-set -g fish_color_end 5c626c
-set -g fish_color_error 6d45ff
-set -g fish_color_param d3dae3
-set -g fish_color_comment 666a73
-set -g fish_color_match --background=2187fc
-set -g fish_color_selection white --bold --background=353945
-set -g fish_color_search_match fdbc4b --background=353945
-set -g fish_color_history_current --bold
-set -g fish_color_operator 00c1e4
-set -g fish_color_escape 00c1e4
-set -g fish_color_autosuggestion 666a73
+set -U fish_color_normal d3dae3
+set -U fish_color_command 71f79f
+set -U fish_color_quote fdbc4b
+set -U fish_color_redirection 2187fc
+set -U fish_color_end 8b9199
+set -U fish_color_error ff6b6b
+set -U fish_color_redirection 7fbfff
+set -U fish_color_comment 8b9199
+set -U fish_color_match --background=7fbfff
+set -U fish_color_autosuggestion 8b9199
 
 # Prompt colors
-set -g fish_prompt_color_logo cyan
-set -g fish_prompt_color_time purple
-set -g fish_prompt_color_user green
-set -g fish_prompt_color_cwd normal
-set -g fish_prompt_color_git magenta
-set -g fish_prompt_color_symbol yellow
+set -U fish_prompt_color_logo cyan
+set -U fish_prompt_color_time purple
+set -U fish_prompt_color_user green
+set -U fish_prompt_color_cwd normal
+set -U fish_prompt_color_git magenta
+set -U fish_prompt_color_symbol yellow

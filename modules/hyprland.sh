@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 
-# ─────────────────────────────────────────────
-# hyprland.sh — Hyprland desktop environment setup
-# ─────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+# Module: hyprland.sh
+# Description: Orchestrates the Hyprland desktop environment setup.
+#              Integrates packages, services, and dotfiles specifically for
+#              the Hyprland workflow.
+# ──────────────────────────────────────────────────────────────────────────────
 
+# /**
+#  * setup_hyprland()
+#  * Orchestrates the full Hyprland environment installation.
+#  * Calls packages, services, and dotfiles modules using config/hyprland.yaml.
+#  */
 setup_hyprland() {
     local config="${CONFIG_DIR}/hyprland.yaml"
 
@@ -18,7 +26,7 @@ setup_hyprland() {
     # Deploy dotfiles listed in hyprland.yaml
     deploy_dotfiles_from_config "${config}"
 
-    # ── Hyprland-specific post-setup ──────────
+    # ── Hyprland-specific post-setup ──────────────────────────────────────────
 
     # Ensure scripts in hypr dotfiles are executable
     if [[ -d "${DOTFILES_DIR}/hypr/scripts" ]]; then

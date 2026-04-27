@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-# ─────────────────────────────────────────────
-# core.sh — Shared utilities and helpers
-# ─────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+# Module: core.sh
+# Description: Shared utilities, logging engine, and YAML parsing fallbacks.
+#              This is the heart of the post-install framework.
+# ──────────────────────────────────────────────────────────────────────────────
 
 # Resolve the root directory of the project
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -16,11 +18,14 @@ mkdir -p "${LOG_DIR}"
 # Log file for current run
 LOG_FILE="${LOG_DIR}/install-$(date +%Y%m%d-%H%M%S).log"
 
-# Verbose mode (set via -v flag)
+# Global flags
 VERBOSE=false
 DRY_RUN=false
 
-# Cleanup handler
+# /**
+#  * cleanup_on_exit()
+#  * Handles script termination and logs errors if the exit code is non-zero.
+#  */
 cleanup_on_exit() {
     local exit_code=$?
     if [[ ${exit_code} -ne 0 ]]; then
@@ -29,7 +34,7 @@ cleanup_on_exit() {
 }
 trap cleanup_on_exit EXIT
 
-# ── Colors ────────────────────────────────────
+# ── Colors ────────────────────────────────────────────────────────────────────
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -38,7 +43,9 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
-# ── Logging ───────────────────────────────────
+# ── Logging ───────────────────────────────────────────────────────────────────
+# Standardized logging functions that print to stdout and append to the log file.
+
 log_info()    { echo -e "${BLUE}[INFO]${NC}    $*" | tee -a "${LOG_FILE}"; }
 log_success() { echo -e "${GREEN}[OK]${NC}      $*" | tee -a "${LOG_FILE}"; }
 log_warn()    { echo -e "${YELLOW}[WARN]${NC}    $*" | tee -a "${LOG_FILE}"; }
@@ -46,7 +53,12 @@ log_error()   { echo -e "${RED}[ERROR]${NC}   $*" | tee -a "${LOG_FILE}"; }
 log_step()    { echo -e "\n${CYAN}${BOLD}▸ $*${NC}\n" | tee -a "${LOG_FILE}"; }
 log_debug()   { [[ "${VERBOSE}" == true ]] && echo -e "${GRAY}[DEBUG]${NC}  $*" | tee -a "${LOG_FILE}"; }
 
-# ── Network check ─────────────────────────────
+# ── Network check ─────────────────────────────────────────────────────────────
+# /**
+#  * check_internet()
+#  * Verifies that the system has an active internet connection.
+#  * Returns 0 if connected, 1 otherwise.
+#  */
 check_internet() {
     log_step "Checking internet connectivity..."
     if curl -s --max-time 5 https://archlinux.org > /dev/null 2>&1; then
@@ -61,7 +73,11 @@ check_internet() {
     fi
 }
 
-# ── Checks ────────────────────────────────────
+# ── Checks ────────────────────────────────────────────────────────────────────
+# /**
+#  * require_root()
+#  * Ensures the script is NOT run as root, but that the user has sudo privileges.
+#  */
 require_root() {
     if [[ $EUID -eq 0 ]]; then
         log_error "Do not run this script as root. Use a normal user with sudo."
@@ -75,6 +91,10 @@ require_root() {
     fi
 }
 
+# /**
+#  * require_arch()
+#  * Ensures the script is running on Arch Linux.
+#  */
 require_arch() {
     if [[ ! -f /etc/arch-release ]]; then
         log_error "This script is designed for Arch Linux only."
@@ -82,6 +102,11 @@ require_arch() {
     fi
 }
 
+# /**
+#  * require_command()
+#  * Verifies that a specific command is available in the PATH.
+#  * @param {string} cmd - The command to check.
+#  */
 require_command() {
     local cmd="$1"
     if ! command -v "${cmd}" &>/dev/null; then
@@ -90,26 +115,35 @@ require_command() {
     fi
 }
 
-# ── YAML Parsing ──────────────────────────────
+# ── YAML Parsing ──────────────────────────────────────────────────────────────
 # Uses yq to read YAML config files.
 # Falls back to a basic grep parser if yq is unavailable.
 
+# /**
+#  * yaml_list()
+#  * Extracts a list (array) from a YAML file.
+#  * @param {string} file - Path to the YAML file.
+#  * @param {string} key - The YAML key (e.g., "packages.pacman").
+#  * @returns {string} - Newline-separated list of values.
+#  */
 yaml_list() {
-    # Usage: yaml_list <file> <key>
-    # Returns a newline-separated list of values under a YAML array key.
     local file="$1" key="$2"
 
     if command -v yq &>/dev/null; then
         yq -r ".${key}[]? // empty" "${file}" 2>/dev/null
     else
-        # Fallback: basic parser for simple YAML arrays
         _yaml_list_fallback "${file}" "${key}"
     fi
 }
 
+# /**
+#  * yaml_value()
+#  * Extracts a single scalar value from a YAML file.
+#  * @param {string} file - Path to the YAML file.
+#  * @param {string} key - The YAML key.
+#  * @returns {string} - The value of the key.
+#  */
 yaml_value() {
-    # Usage: yaml_value <file> <key>
-    # Returns a single scalar value.
     local file="$1" key="$2"
 
     if command -v yq &>/dev/null; then
@@ -119,6 +153,8 @@ yaml_value() {
     fi
 }
 
+# ── Fallback Parsers (Internal) ───────────────────────────────────────────────
+
 _yaml_list_fallback() {
     # Simple line-by-line YAML list parser (handles nested `key:\n  - val` format)
     local file="$1" key="$2"
@@ -127,16 +163,15 @@ _yaml_list_fallback() {
     local target_depth="${key//[^:]}"  # Count colons for depth
     target_depth="${#target_depth}"
     local key_segments=(${key//./ })
-    local current_segment=0
     local match_key="${key_segments[-1]}"
 
     while IFS= read -r line; do
         # Strip leading whitespace for easier parsing
         local stripped="${line#"${line%%[![:space:]]*}"}"
 
-        # Track current depth based on leading spaces
+        # Track current depth based on leading spaces (2 spaces = 1 level)
         local line_depth=0
-        if [[ "${stripped}" =~ ^([[:space:]]*) ]]; then
+        if [[ "${line}" =~ ^([[:space:]]*) ]]; then
             line_depth=$((${#BASH_REMATCH[1]} / 2))
         fi
 
@@ -149,13 +184,13 @@ _yaml_list_fallback() {
             local current_val="${BASH_REMATCH[2]}"
 
             # Handle parent keys for nested structures
-            if [[ "${line_depth}" -eq $((target_depth - 1)) && "${current_key}" == "${match_key}" ]]; then
+            if [[ "${line_depth}" -eq $((target_depth)) && "${current_key}" == "${match_key}" ]]; then
                 in_block=true
                 continue
             fi
 
             # If we're inside our target block and hit a sibling key at same depth, stop
-            if ${in_block} && [[ "${line_depth}" -le $((target_depth - 1)) && -n "${current_val}" ]]; then
+            if ${in_block} && [[ "${line_depth}" -le $((target_depth)) && -n "${current_val}" ]]; then
                 break
             fi
         fi
@@ -166,7 +201,10 @@ _yaml_list_fallback() {
             elif [[ "${stripped}" =~ ^-[[:space:]]*$ ]]; then
                 continue
             else
-                break
+                # We left the block
+                if [[ "${line_depth}" -le $((target_depth)) ]]; then
+                   in_block=false
+                fi
             fi
         fi
     done < "${file}"
@@ -181,15 +219,31 @@ _yaml_value_fallback() {
         | sed 's/.*:[[:space:]]*//'
 }
 
-# ── System Update ─────────────────────────────
+# ── System Update ─────────────────────────────────────────────────────────────
+# /**
+#  * setup_core()
+#  * Performs initial system update and installs essential tools (yq).
+#  */
 setup_core() {
     log_step "Updating system"
     check_internet || { log_error "Cannot proceed without internet"; exit 1; }
+    
+    # Update pacman databases and system
     sudo pacman -Syu --noconfirm 2>&1 | tee -a "${LOG_FILE}"
-    log_success "System updated"
+    
+    # Ensure yq is installed (used for YAML parsing)
+    if ! command -v yq &>/dev/null; then
+        log_info "yq not found, installing..."
+        sudo pacman -S --needed --noconfirm yq 2>&1 | tee -a "${LOG_FILE}"
+    fi
+
+    log_success "System updated and core tools verified"
 }
 
-# ── Ensure yay is available ───────────────────
+# /**
+#  * ensure_yay()
+#  * Installs the yay AUR helper if it's not already available.
+#  */
 ensure_yay() {
     if ! command -v yay &>/dev/null; then
         log_info "yay not found, installing..."

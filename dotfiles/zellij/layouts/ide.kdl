@@ -17,10 +17,16 @@ layout {
     }
     tab name="DevAgent"
     tab name="TestAgent"
-    tab name="Docker"
+    tab name="Docker" {
+      pane command="lazydocker"
+    }
     tab name="Github"
-    tab name="Monitor"
+    tab name="Monitor"{
+      pane
+      pane
+    }
   }
+
 
 
 

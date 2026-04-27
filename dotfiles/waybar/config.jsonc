@@ -28,8 +28,8 @@
     "group/tray"
   ],
   "custom/arch": {
-    "format": "<span font='16'></span>  <span font='11' weight='bold' rise='1000'>{}</span>",
     "exec": "/home/sachin/.config/waybar/scripts/updates.sh",
+    "format": "<span font='16'></span>",
     "return-type": "json",
     "interval": 600,
     "tooltip": true,

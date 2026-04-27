@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-# ─────────────────────────────────────────────
-# users.sh — User account configuration
-# ─────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+# Module: users.sh
+# Description: Configures user account settings and system locales.
+#              Handles shell, groups, timezone, and locale generation.
+# ──────────────────────────────────────────────────────────────────────────────
 
+# /**
+#  * setup_users()
+#  * Configures the current user and system-wide settings from config/base.yaml.
+#  */
 setup_users() {
     local config="${CONFIG_DIR}/base.yaml"
 
     log_step "Configuring user account"
 
-    # ── Set default shell ─────────────────────
+    # ── Set default shell ─────────────────────────────────────────────────────
     local shell
     shell="$(yaml_value "${config}" "user.shell")"
     if [[ -n "${shell}" && -x "${shell}" ]]; then
@@ -22,7 +28,7 @@ setup_users() {
         fi
     fi
 
-    # ── Add user to groups ────────────────────
+    # ── Add user to groups ────────────────────────────────────────────────────
     local -a groups=()
     while IFS= read -r grp; do
         [[ -n "${grp}" ]] && groups+=("${grp}")
@@ -41,7 +47,7 @@ setup_users() {
         fi
     done
 
-    # ── Set locale & timezone ─────────────────
+    # ── Set locale & timezone ─────────────────────────────────────────────────
     local timezone locale keymap
     timezone="$(yaml_value "${config}" "system.timezone")"
     locale="$(yaml_value "${config}" "system.locale")"

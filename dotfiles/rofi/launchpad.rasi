@@ -8,15 +8,33 @@ configuration {
     terminal:            "kitty";
 }
 
-@import "~/.config/rofi/colors.rasi"
-
 * {
+    bg:      #11140e;
+    bg-alt:  #1d211a;
+    fg:      #e1e4d9;
+    fg-dim:  #33362f;
+    sel:     #abd290;
+
     background-color: transparent;
     text-color:       @fg;
     border-color:     transparent;
     spacing:          0;
     padding:          0;
     margin:           0;
+    /* theme-changer: begin */
+    bg:      #1a1c20;
+    bg-alt:  #141421;
+    fg:      #d3dae3;
+    fg-dim:  #666a73;
+    sel:     #f2b311;
+
+    background-color: transparent;
+    text-color:       @fg;
+    border-color:     transparent;
+    spacing:          0;
+    padding:          0;
+    margin:           0;
+    /* theme-changer: end */
 }
 
 window {
@@ -73,7 +91,7 @@ element {
 }
 
 element-icon {
-    background-color: @bg-card;
+    background-color: @bg-alt;
     border-radius:    16px;
     size:             56px;
     padding:          18px;

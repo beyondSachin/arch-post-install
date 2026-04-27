@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 
-# ─────────────────────────────────────────────
-# dotfiles.sh — Dotfile deployment via symlinks
-# ─────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+# Module: dotfiles.sh
+# Description: Manages configuration deployment via symlinks.
+#              Includes automatic backup logic for existing configurations.
+# ──────────────────────────────────────────────────────────────────────────────
 
+# Timestamped backup directory for existing configurations
 BACKUP_DIR="${HOME}/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
+# /**
+#  * deploy_dotfiles_from_config()
+#  * Reads a YAML config and symlinks repository directories to ~/.config/.
+#  * @param {string} config - Path to the YAML config file.
+#  */
 deploy_dotfiles_from_config() {
-    # Usage: deploy_dotfiles_from_config <config.yaml>
     local config="$1"
 
     if [[ ! -f "${config}" ]]; then

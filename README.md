@@ -1,16 +1,29 @@
 # Arch Linux Post-Installation Workbench
 
+<div align="center">
+  <img src="assets/banner-light.png" width="400" alt="Light Theme Banner">
+  <img src="assets/banner-dark.png" width="400" alt="Dark Theme Banner">
+</div>
+
 A highly modular, automated, and visually polished Arch Linux post-installation framework. Transforms a fresh Arch install into a production-ready **Hyprland** workstation with curated aesthetics and a centralized theming engine.
+
+<div align="center">
 
 [![Hyprland](https://img.shields.io/badge/DE-Hyprland-blue?style=for-the-badge&logo=hyprland)](https://hyprland.org)
 [![Arch Linux](https://img.shields.io/badge/OS-Arch%20Linux-blue?style=for-the-badge&logo=arch-linux)](https://archlinux.org)
+[![Shell](https://img.shields.io/badge/Shell-Bash%20%26%20Fish-orange?style=for-the-badge&logo=gnu-bash)](https://www.gnu.org/software/bash/)
+[![Editor](https://img.shields.io/badge/Editor-Neovim-green?style=for-the-badge&logo=neovim)](https://neovim.io)
+[![Theme](https://img.shields.io/badge/Theme-Catppuccin-pink?style=for-the-badge&logo=catppuccin)](https://github.com/catppuccin/catppuccin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+</div>
 
 ---
 
 ## Table of Contents
 
 - [Features](#features)
+- [How it Works](#how-it-works)
 - [Requirements](#requirements)
 - [Quick Start](#quick-start)
 - [Usage](#usage)
@@ -28,13 +41,48 @@ A highly modular, automated, and visually polished Arch Linux post-installation 
 ## Features
 
 | Feature | Description |
-|---------|-------------|
-| **Modular Design** | Packages, services, user configuration, and dotfiles are decoupled into functional modules |
-| **Unified Theming** | Dark (Macchiato) and Light (Latte) themes applied across all components via `SUPER + N` |
-| **Profile-Based** | Supports `full`, `base`, or `dotfiles` installation modes |
-| **Idempotent** | Uses `--needed` flags and pre-flight checks for safe re-runs |
-| **Robust Logging** | Every step is timestamped and logged to `logs/` |
-| **Symlinked Dotfiles** | Automated deployment with automatic backups of existing configs |
+|:---:|:---|
+| 🧱 | **Modular Design**: Packages, services, and dotfiles are decoupled into functional modules. |
+| 🎨 | **Unified Theming**: Dark (Macchiato) and Light (Latte) themes applied via `SUPER + N`. |
+| 👤 | **Profile-Based**: Supports `full`, `base`, or `dotfiles` installation modes. |
+| 🔄 | **Idempotent**: Uses `--needed` flags and pre-flight checks for safe re-runs. |
+| 📜 | **Robust Logging**: Every step is timestamped and logged to `logs/`. |
+| 🔗 | **Symlinked Dotfiles**: Automated deployment with automatic backups of existing configs. |
+
+---
+
+## How it Works
+
+The workbench operates as a modular engine that parses YAML configurations to drive the installation.
+
+```mermaid
+graph TD
+    A[install.sh] --> B(core.sh)
+    B --> C{Mode Selection}
+    C -->|full| D[packages.sh]
+    C -->|full| E[services.sh]
+    C -->|full| F[users.sh]
+    C -->|full| G[dotfiles.sh]
+    C -->|full| H[hyprland.sh]
+    
+    D --> I[(config/*.yaml)]
+    G --> I
+    
+    H --> D
+    H --> E
+    H --> G
+```
+
+### Installation Lifecycle
+
+1. **Pre-flight**: Verifies Arch Linux, internet connectivity, and sudo privileges.
+2. **Core Setup**: Updates system and ensures `yay` (AUR helper) and `yq` (YAML parser) are available.
+3. **Module Execution**:
+   - **Packages**: Installs pacman and AUR packages listed in configs.
+   - **Services**: Enables systemd services and timers.
+   - **Users**: Configures shell, groups, locale, and timezone.
+   - **Dotfiles**: Symlinks configurations from `dotfiles/` to `~/.config/` with automatic backups.
+   - **Environment**: Orchestrates DE-specific setup (Hyprland).
 
 ---
 
@@ -115,6 +163,8 @@ make dotfiles DRY=1         # Dry-run mode
 ```
 arch-post-install/
 ├── install.sh                 # Main entry point
+├── ARCHITECTURE.md            # Technical design documentation
+├── Makefile                   # Development shortcuts & automation
 ├── config/
 │   ├── base.yaml              # Core packages & system settings
 │   └── hyprland.yaml          # Hyprland packages, services & dotfiles
@@ -130,35 +180,32 @@ arch-post-install/
 │   ├── hypr/                  # Hyprland window manager config
 │   ├── waybar/                # Status bar configuration
 │   ├── kitty/                 # Terminal emulator config
-│   ├── rofi/                  # App launcher themes
-│   ├── alacritty/             # Alternative terminal config
-│   ├── nvim/                  # Neovim IDE setup
-│   ├── yazi/                  # Terminal file manager
-│   ├── zellij/                # Terminal multiplexer
-│   └── fish/                  # Fish shell configuration
+│   └── ...                    # (See ARCHITECTURE.md for full list)
 ├── scripts/
 │   ├── install_yay.sh         # AUR helper setup
-│   ├── setup_fish.sh         # Fish + Fisher + plugins
+│   ├── setup_fish.sh          # Fish + Fisher + plugins
 │   └── fonts.sh               # Font installation
-├── logs/                      # Installation logs
-└── Makefile                   # Development shortcuts
+├── assets/                    # Repository branding & documentation media
+└── logs/                      # Timestamped installation logs
 ```
 
 ---
 
 ## Theming System
 
-The unified theme engine uses **Catppuccin** color palettes:
-- **Dark Mode**: Catppuccin Macchiato
-- **Light Mode**: Catppuccin Latte
+The unified theme engine uses **Catppuccin** color palettes for a consistent, eye-pleasing experience.
 
-Toggle with `SUPER + N`. The theme synchronizes across:
+- 🌑 **Dark Mode**: Catppuccin Macchiato
+- ☀️ **Light Mode**: Catppuccin Latte
 
-1. **Hyprland** - Borders, shadows, window aesthetics
-2. **Waybar** - CSS variables for modules and accents
-3. **Kitty** - Terminal colorscheme
-4. **Rofi** - Dynamic RASI variables
-5. **GTK/Qt** - System-wide theme preferences
+Toggle themes instantly with **`SUPER + N`**. The system synchronizes the following components:
+
+1. **Hyprland** - Borders, active window glow, and workspace indicators.
+2. **Waybar** - CSS variables for background, text, and accent colors.
+3. **Kitty / Alacritty** - Terminal color schemes.
+4. **Rofi** - Dynamic RASI variables for launchers and menus.
+5. **GTK/Qt** - System-wide interface preferences (Dark/Light preference).
+6. **Neovim** - Integrated theme switching for LazyVim.
 
 ---
 
@@ -182,19 +229,19 @@ Toggle with `SUPER + N`. The theme synchronizes across:
 ## Included Stack
 
 | Category | Components |
-|----------|------------|
-| **Compositor** | Hyprland, hyprpaper, hypridle, hyprlock |
-| **Bar/UI** | Waybar, Dunst |
-| **Launcher** | Rofi (Modern, Spotlight, Launchpad themes) |
-| **Terminal** | Kitty, Alacritty |
-| **File Manager** | Nautilus, Yazi |
-| **Editor** | Neovim (LazyVim) |
-| **Multiplexer** | Zellij |
-| **Browser** | Chromium |
-| **Media** | MPv, IMV, Feh, Evince |
-| **Audio** | PipeWire, WirePlumber, WireMix |
-| **Network** | NetworkManager, Impala, Bluetui |
-| **Theming** | Papirus Icons, Adwaita, Qt5ct, Kvantum |
+|:---:|:---|
+| **Compositor** | [Hyprland](https://hyprland.org), [hyprpaper](https://github.com/hyprwm/hyprpaper), [hypridle](https://github.com/hyprwm/hypridle), [hyprlock](https://github.com/hyprwm/hyprlock) |
+| **Bar/UI** | [Waybar](https://github.com/Alexays/Waybar), [Dunst](https://dunst-project.org/) |
+| **Launcher** | [Rofi](https://github.com/davatorium/rofi) (Modern, Spotlight, Launchpad themes) |
+| **Terminal** | [Kitty](https://sw.kovidgoyal.net/kitty/), [Alacritty](https://alacritty.org/) |
+| **File Manager** | [Nautilus](https://apps.gnome.org/Nautilus/), [Yazi](https://github.com/sxyazi/yazi) |
+| **Editor** | [Neovim](https://neovim.io) ([LazyVim](https://lazyvim.github.io) setup) |
+| **Multiplexer** | [Zellij](https://zellij.dev/) |
+| **Browser** | [Chromium](https://www.chromium.org/) |
+| **Media** | [MPV](https://mpv.io/), [imv](https://github.com/epezent/imv), [feh](https://feh.finalrewind.org/), [Evince](https://wiki.gnome.org/Apps/Evince) |
+| **Audio** | [PipeWire](https://pipewire.org/), [WirePlumber](https://pipewire.pages.freedesktop.org/wireplumber/) |
+| **Network** | [NetworkManager](https://wiki.archlinux.org/title/NetworkManager), [iWD](https://iwd.wiki.kernel.org/) |
+| **Theming** | [Papirus Icons](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme), [Adwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/), [Kvantum](https://github.com/tsujan/Kvantum) |
 
 ---
 
@@ -247,35 +294,45 @@ systemctl --user restart pipewire pipewire-pulse wireplumber
 
 ### Add custom packages
 
-Edit `config/base.yaml` or `config/hyprland.yaml`:
+Edit `config/base.yaml` or `config/hyprland.yaml`. The workbench automatically skips already installed packages.
 
 ```yaml
 packages:
   pacman:
-    - your-package
+    - firefox
+    - vlc
   aur:
-    - your-aur-package
+    - visual-studio-code-bin
+    - spotify
 ```
 
 ### Add dotfiles
 
-Edit `config/hyprland.yaml`:
+Place your configuration directory in `dotfiles/` and add it to `config/hyprland.yaml`. Existing directories in `~/.config/` will be backed up automatically.
 
 ```yaml
 dotfiles:
-  - your-dotfile-dir
+  - my-cool-app-config
 ```
 
 ### Change default theme
 
-Edit `dotfiles/theme/config.conf`:
+The theme system is centralized. Edit `dotfiles/theme/config.conf` to switch between flavors:
 ```bash
-THEME=macchiato   # or: latte
+THEME=macchiato   # Dark mode
+# OR:
+THEME=latte       # Light mode
 ```
 
-### Add wallpapers
+### Advanced: Custom Scripts
 
-Place images in `~/.config/hypr/assets/` and select via `SUPER + M`.
+You can add post-install scripts to the `scripts/` directory and call them from `install.sh` or a module. Follow the existing pattern:
+```bash
+#!/usr/bin/env bash
+source modules/core.sh
+log_step "Running custom setup"
+# Your logic here
+```
 
 ---
 

@@ -5,7 +5,7 @@
     border: none;
     border-radius: 0;
     font-family: "Inter", "Font Awesome 6 Free", "Symbols Nerd Font", sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     min-height: 0;
 }
 
@@ -39,7 +39,7 @@ window#waybar {
 }
 
 #custom-arch.updated {
-    color: @accent-green;
+    color: @accent-blue;
 }
 
 #custom-media {

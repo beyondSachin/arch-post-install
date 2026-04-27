@@ -18,4 +18,7 @@ if status is-interactive
     alias unlock="$HOME/unlocker.sh"
     alias cleanup="$HOME/cleanup.sh"
     alias sql="harlequin"
+
+    # Check BIOS Update
+    alias bios-update="fwupdmgr get-updates"
 end
