@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ╔══════════════════════════════════════╗
 # ║    Floating Quick Settings Menu      ║
 # ║    Theme · Wallpaper · Update · Info ║
 # ╚══════════════════════════════════════╝
+
+set -euo pipefail
 
 SCRIPTS_DIR="$HOME/.config/hypr/scripts"
 
@@ -18,14 +20,13 @@ fi
 options="$THEME_LABEL
 󱘖  Clipboard History
 󰋩  Change Wallpaper
-󰚐  Check Updates
-󰣇  Update Arch Linux
-󰚙  Update AUR
+󰚰  Update
+  Settings
 󰍹  About This PC
-⏻ Power Menu"
+⏻  Power Menu"
 
 # Show the rofi menu
-selection=$(echo "$options" | rofi -dmenu -i \
+selection=$(echo -e "$options" | rofi -dmenu -i \
   -p "⚡ Quick Settings" \
   -mesg "  Hyprland Control Center" \
   -theme ~/.config/rofi/floating-menu.rasi)
@@ -41,21 +42,34 @@ case "$selection" in
 *"Change Wallpaper"*)
   bash "$SCRIPTS_DIR/wallpaper_picker.sh"
   ;;
-*"Check Update"*)
-  kitty --title "Check Update" --class floating-term \
-    bash "$SCRIPTS_DIR/check_updates.sh"
+*"Update"*)
+  # Sub-menu for Update group
+  update_options="󰚐  Check Updates
+󰣇  Update Arch Linux
+󰚙  Update AUR"
+
+  update_selection=$(echo -e "$update_options" | rofi -dmenu -i \
+    -p "󰚰  Update" \
+    -theme ~/.config/rofi/floating-menu.rasi)
+
+  case "$update_selection" in
+  *"Check Update"*)
+    kitty --title "Check Update" --class floating-term bash "$SCRIPTS_DIR/check_updates.sh"
+    ;;
+  *"Update Arch"*)
+    kitty --title "System Update" --class floating-term bash "$SCRIPTS_DIR/update_arch.sh"
+    ;;
+  *"Update AUR"*)
+    kitty --title "AUR Update" --class floating-term bash "$SCRIPTS_DIR/aur_update.sh"
+    ;;
+  esac
   ;;
-*"Update Arch"*)
-  kitty --title "System Update" --class floating-term \
-    bash "$SCRIPTS_DIR/update_arch.sh"
-  ;;
-*"Update AUR"*)
-  kitty --title "AUR Update" --class floating-term \
-    bash "$SCRIPTS_DIR/aur_update.sh"
+*"Settings"*)
+  bash "$SCRIPTS_DIR/settings.sh"
   ;;
 *"About This PC"*)
-  kitty --title "About This PC" --class floating-term \
-    bash "$SCRIPTS_DIR/about_pc.sh"
+
+  kitty --title "About This PC" --class floating-term bash "$SCRIPTS_DIR/about_pc.sh"
   ;;
 *"Power Menu"*)
   bash "$SCRIPTS_DIR/power_menu.sh"

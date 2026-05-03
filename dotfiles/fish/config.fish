@@ -1,11 +1,9 @@
 if status is-interactive
+    source ~/.config/ohmyposh/oh-my-posh.fish
 end
 
 # Greeting off
 set -g fish_greeting ""
-
-# Zoxide (conditionally loaded via tools.fish)
-# vfox (conditionally loaded via tools.fish)
 
 # Legacy path (now in conf.d/path.fish)
 

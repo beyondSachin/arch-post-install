@@ -34,6 +34,8 @@ ICON_PACKAGE="󰏖"
 # Functions
 # -----------------------------------------------------------------------------
 
+SCRIPTS_DIR="$HOME/.config/hypr/scripts"
+
 print_header() {
   clear
 
@@ -61,6 +63,38 @@ pause_exit() {
   echo -e "${GRAY}Press any key to exit...${RESET}"
   read -rn 1
   echo
+}
+
+prompt_update() {
+  echo
+  echo -e "${BLUE}󰚰  Actions:${RESET}"
+  echo -e "  ${CYAN}[1]${RESET} Update Arch Linux"
+  echo -e "  ${CYAN}[2]${RESET} Update AUR Packages"
+  echo -e "  ${CYAN}[3]${RESET} Full Update (Arch + AUR)"
+  echo -e "  ${CYAN}[q]${RESET} Quit"
+  echo
+  read -rn 1 -p "  Select an option: " choice
+  echo
+
+  case "$choice" in
+  1)
+    bash "$SCRIPTS_DIR/update_arch.sh"
+    ;;
+  2)
+    bash "$SCRIPTS_DIR/aur_update.sh"
+    ;;
+  3)
+    bash "$SCRIPTS_DIR/update_arch.sh"
+    bash "$SCRIPTS_DIR/aur_update.sh"
+    ;;
+  q | Q)
+    exit 0
+    ;;
+  *)
+    echo -e "${RED}Invalid option.${RESET}"
+    prompt_update
+    ;;
+  esac
 }
 
 # -----------------------------------------------------------------------------
@@ -135,6 +169,8 @@ if [[ "${TOTAL_UPDATES}" -gt 0 ]]; then
       "${TOTAL_UPDATES} updates available." \
       -i software-update-available-symbolic
   fi
+
+  prompt_update
 else
   print_success "System is fully up to date."
 
@@ -144,6 +180,6 @@ else
       "System is fully up to date." \
       -i dialog-information-symbolic
   fi
-fi
 
-pause_exit
+  pause_exit
+fi
