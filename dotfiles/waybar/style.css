@@ -206,6 +206,12 @@ window#waybar {
     margin: 2px 0;
 }
 
+#custom-clipboard {       
+  color: @accent-orange;  
+  padding: 0 10px;        
+  margin: 2px 0;          
+}                         
+
 #window {
     font-style: italic;
     font-weight: 500;

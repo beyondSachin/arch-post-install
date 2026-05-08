@@ -69,7 +69,7 @@ case "$selection" in
   ;;
 *"About This PC"*)
 
-  kitty --title "About This PC" --class floating-term bash "$SCRIPTS_DIR/about_pc.sh"
+  kitty --title "About This PC" --class meduim-floating-term bash "$SCRIPTS_DIR/about_pc.sh"
   ;;
 *"Power Menu"*)
   bash "$SCRIPTS_DIR/power_menu.sh"
