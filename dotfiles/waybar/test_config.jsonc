@@ -1,0 +1,6 @@
+{
+    "modules-right": ["pulseaudio/slider#test"],
+    "pulseaudio/slider#test": {
+        "target": "source"
+    }
+}

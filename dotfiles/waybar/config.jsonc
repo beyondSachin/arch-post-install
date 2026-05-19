@@ -17,7 +17,7 @@
   ],
   "modules-right": [
     "group/audio",
-    "group/microphone",
+    "pulseaudio#microphone",
     "bluetooth",
     "network",
     "cpu",
@@ -74,18 +74,7 @@
     },
     "modules": [
       "pulseaudio",
-      "pulseaudio/slider"
-    ]
-  },
-  "group/microphone": {
-    "orientation": "horizontal",
-    "drawer": {
-      "transition-duration": 500,
-      "transition-left-to-right": false
-    },
-    "modules": [
-      "pulseaudio#microphone",
-      "pulseaudio/slider#microphone"
+      "pulseaudio/slider#audio"
     ]
   },
   "group/tray": {
@@ -149,12 +138,12 @@
     ]
   },
   "network": {
-    "format-wifi": " ({signalStrength}%) ↑{bandwidthUpBits} ↓{bandwidthDownBits}",
-    "format-ethernet": " {ipaddr} 󰇶 {bandwidthUpBits} 󰇚 {bandwidthDownBits}",
+    "format-wifi": " ({signalStrength}%) 󰁞 {bandwidthUpBits} 󰁆 {bandwidthDownBits}",
+    "format-ethernet": " {ipaddr} 󰁞 {bandwidthUpBits} 󰁆 {bandwidthDownBits}",
     "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e impala'",
     "format-linked": " (No IP)",
     "format-disconnected": "⚠ Disconnected",
-    "tooltip-format": "{ifname} via {gwaddr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
     "interval": 2
   },
   "pulseaudio": {
@@ -177,25 +166,19 @@
     },
     "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e wiremix'"
   },
-  "pulseaudio/slider": {
+  "pulseaudio/slider#audio": {
     "min": 0,
     "max": 100,
     "orientation": "horizontal"
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",
-    "format-source": " {volume}%",
+    "format-source": "",
     "format-source-muted": "",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
     "scroll-step": 5
-  },
-  "pulseaudio/slider#microphone": {
-    "min": 0,
-    "max": 100,
-    "orientation": "horizontal",
-    "device": "source"
   },
   "bluetooth": {
     "format": "",
