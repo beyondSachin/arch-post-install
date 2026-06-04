@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # ~/.config/yazi/preview.sh
 
 file="$1"

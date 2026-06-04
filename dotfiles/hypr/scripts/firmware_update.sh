@@ -24,7 +24,7 @@ fi
 
 # Get updates (machine-readable)
 echo "$(timestamp) - Checking for updates" | tee -a "$LOG"
-if ! sudo fwupdmgr get-updates --show-all --json >"$TMP" 2>>"$LOG"; then
+if ! sudo fwupdmgr get-updates --show-all --json 2>&1 | sudo tee "$TMP" >>"$LOG"; then
   echo "$(timestamp) - GET-UPDATES FAILED; see $LOG" | tee -a "$LOG"
   exit 4
 fi

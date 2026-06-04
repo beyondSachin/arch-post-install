@@ -4,7 +4,6 @@
 # Designed for Antigravity Waybar theme
 
 USER_NAME=$(whoami)
-HOST_NAME=$(hostname)
 
 # Icons (Nerd Fonts)
 ICON_LOCK="󰌾"

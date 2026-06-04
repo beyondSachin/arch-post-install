@@ -8,7 +8,9 @@
 
 # Resolve the root directory of the project
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck disable=SC2034 -- used by sourcing scripts
 CONFIG_DIR="${SCRIPT_DIR}/config"
+# shellcheck disable=SC2034 -- used by sourcing scripts
 DOTFILES_DIR="${SCRIPT_DIR}/dotfiles"
 LOG_DIR="${SCRIPT_DIR}/logs"
 
@@ -19,7 +21,9 @@ mkdir -p "${LOG_DIR}"
 LOG_FILE="${LOG_DIR}/install-$(date +%Y%m%d-%H%M%S).log"
 
 # Global flags
+# shellcheck disable=SC2034 -- used by sourcing scripts
 VERBOSE=false
+# shellcheck disable=SC2034 -- used by sourcing scripts
 DRY_RUN=false
 
 # /**
@@ -160,10 +164,9 @@ _yaml_list_fallback() {
     # Simple line-by-line YAML list parser (handles nested `key:\n  - val` format)
     local file="$1" key="$2"
     local in_block=false
-    local depth=0
     local target_depth="${key//[^:]}"  # Count colons for depth
     target_depth="${#target_depth}"
-    local key_segments=(${key//./ })
+    local key_segments=(${key//./ })  # shellcheck disable=SC2206
     local match_key="${key_segments[-1]}"
 
     while IFS= read -r line; do
