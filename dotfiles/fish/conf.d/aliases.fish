@@ -10,6 +10,7 @@ if status is-interactive
     alias cat="bat"
     alias find="fd"
     alias grep="rg"
+    alias cal="calcure"
 
     # Git shortcuts
     alias gs="git status -sb"

@@ -58,7 +58,24 @@ deploy_dotfiles_from_config() {
         log_success "Linked: ${src} → ${dest}"
     done
 
-    # Make scripts executable
-    find "${DOTFILES_DIR}" -name "*.sh" -exec chmod +x {} \;
-    log_success "Made all .sh scripts executable"
+    # Make configured executables executable
+    local -a exec_entries=()
+    while IFS= read -r entry; do
+        [[ -n "${entry}" ]] && exec_entries+=("${entry}")
+    done < <(yaml_list "${config}" "executables")
+
+    if [[ ${#exec_entries[@]} -gt 0 ]]; then
+        for entry in "${exec_entries[@]}"; do
+            local exec_path="${DOTFILES_DIR}/${entry}"
+            if [[ -d "${exec_path}" ]]; then
+                find "${exec_path}" -type f -exec chmod +x {} \;
+                log_success "Marked files in ${entry} as executable"
+            elif [[ -f "${exec_path}" ]]; then
+                chmod +x "${exec_path}"
+                log_success "Marked ${entry} as executable"
+            else
+                log_warn "Executables entry not found: ${exec_path} (skipped)"
+            fi
+        done
+    fi
 }

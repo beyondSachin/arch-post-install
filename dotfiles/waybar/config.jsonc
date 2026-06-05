@@ -99,7 +99,8 @@
   },
   "clock": {
     "format": "{:L%H:%M  %a, %b %d}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e calcure'"
   },
   "cpu": {
     "format": " {usage}%",

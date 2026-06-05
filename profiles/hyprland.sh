@@ -28,18 +28,6 @@ setup_hyprland() {
 
     # ── Hyprland-specific post-setup ──────────────────────────────────────────
 
-    # Ensure scripts in hypr dotfiles are executable
-    if [[ -d "${DOTFILES_DIR}/hypr/scripts" ]]; then
-        chmod +x "${DOTFILES_DIR}/hypr/scripts/"*.sh 2>/dev/null
-        log_success "Hyprland scripts marked executable"
-    fi
-
-    # Ensure waybar scripts are executable
-    if [[ -d "${DOTFILES_DIR}/waybar/scripts" ]]; then
-        chmod +x "${DOTFILES_DIR}/waybar/scripts/"*.sh 2>/dev/null
-        log_success "Waybar scripts marked executable"
-    fi
-
     # Set GTK dark mode defaults
     log_info "Applying GTK dark mode settings"
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null
