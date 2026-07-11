@@ -101,7 +101,7 @@ graph TD
 ## Quick Start
 
 ```bash
-git clone https://github.com/sachinksamad1/arch-post-install.git
+git clone https://github.com/beyondSachin/arch-post-install.git
 cd arch-post-install
 chmod +x install.sh
 ./install.sh
