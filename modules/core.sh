@@ -166,7 +166,8 @@ _yaml_list_fallback() {
     local in_block=false
     local target_depth="${key//[^:]}"  # Count colons for depth
     target_depth="${#target_depth}"
-    local key_segments=(${key//./ })  # shellcheck disable=SC2206
+    # shellcheck disable=SC2206
+    local key_segments=(${key//./ })
     local match_key="${key_segments[-1]}"
 
     while IFS= read -r line; do
