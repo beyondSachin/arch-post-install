@@ -8,8 +8,8 @@ packages:
     # Compositor & ecosystem
     - hyprland
     - hyprpaper
-    # hypridle and hyprlock are built from source due to sdbus-cpp ABI mismatch
-    # See dotfiles/hypr/scripts/build_hypridle.sh and build_hyprlock.sh
+    - hypridle
+    - hyprlock
     - xdg-desktop-portal-hyprland
 
     # Bar & notifications
