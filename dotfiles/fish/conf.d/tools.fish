@@ -8,7 +8,7 @@ if type -q vfox
     vfox activate fish | source
 end
 
-if type -q starship
+if type -q starship; and not type -q oh-my-posh
     starship init fish | source
 end
 

@@ -7,14 +7,8 @@
   "margin-left": 10,
   "margin-right": 10,
   "spacing": 0,
-  "modules-left": [
-    "custom/arch",
-    "hyprland/workspaces",
-    "hyprland/window"
-  ],
-  "modules-center": [
-    "clock"
-  ],
+  "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
   "modules-right": [
     "group/audio",
     "pulseaudio#microphone",
@@ -27,7 +21,7 @@
     "custom/language",
     "battery",
     "custom/power",
-    "group/tray"
+    "group/tray",
   ],
   "custom/arch": {
     "exec": "~/.config/waybar/scripts/updates.sh",
@@ -36,7 +30,7 @@
     "interval": 600,
     "tooltip": true,
     "on-click": "rofi -show drun",
-    "on-click-right": "~/.config/waybar/scripts/power_menu.sh"
+    "on-click-right": "~/.config/waybar/scripts/power_menu.sh",
   },
   "hyprland/workspaces": {
     "disable-scroll": true,
@@ -52,92 +46,74 @@
       "5": "5",
       "urgent": "",
       "active": "",
-      "default": ""
+      "default": "",
     },
     "persistent-workspaces": {
       "1": [],
       "2": [],
       "3": [],
       "4": [],
-      "5": []
-    }
+      "5": [],
+    },
   },
   "hyprland/window": {
     "format": " {title}",
     "max-length": 40,
-    "separate-outputs": true
+    "separate-outputs": true,
   },
   "group/audio": {
     "orientation": "horizontal",
     "drawer": {
       "transition-duration": 500,
-      "transition-left-to-right": false
+      "transition-left-to-right": false,
     },
-    "modules": [
-      "pulseaudio",
-      "pulseaudio/slider#audio"
-    ]
+    "modules": ["pulseaudio", "pulseaudio/slider#audio"],
   },
   "group/tray": {
     "orientation": "horizontal",
-    "modules": [
-      "custom/tray-toggler",
-      "tray"
-    ],
+    "modules": ["custom/tray-toggler", "tray"],
     "drawer": {
       "transition-duration": 500,
-      "transition-left-to-right": false
-    }
+      "transition-left-to-right": false,
+    },
   },
   "custom/tray-toggler": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
   },
   "tray": {
     "icon-size": 18,
-    "spacing": 10
+    "spacing": 10,
   },
   "clock": {
     "format": "{:L%H:%M  %a, %b %d}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e calcure'"
+    "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e calcure'",
   },
   "cpu": {
     "format": " {usage}%",
     "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e btop'",
-    "tooltip": false
+    "tooltip": false,
   },
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
     "critical-threshold": 80,
     "format": "{icon}{temperatureC}°C",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
+    "format-icons": ["", "", "", "", ""],
   },
   "memory": {
-    "format": " {used:0.1f}GB"
+    "format": " {used:0.1f}GB",
   },
   "battery": {
     "states": {
       "warning": 30,
-      "critical": 15
+      "critical": 15,
     },
     "format": "{icon} {capacity}%",
     "format-charging": "󰂄 {capacity}%",
     "format-plugged": " {capacity}%",
     "format-alt": "{icon} {time}",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
+    "format-icons": ["", "", "", "", ""],
   },
   "network": {
     "format-wifi": " ({signalStrength}%) 󰁞 {bandwidthUpBits} 󰁆 {bandwidthDownBits}",
@@ -146,7 +122,7 @@
     "format-linked": " (No IP)",
     "format-disconnected": "⚠ Disconnected",
     "tooltip-format": "{ifname} via {gwaddr} ",
-    "interval": 2
+    "interval": 2,
   },
   "pulseaudio": {
     "format": "<span font='14'>{icon}</span> {volume}%",
@@ -160,18 +136,14 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [
-        "󰕿",
-        "󰖀",
-        "󰕾"
-      ]
+      "default": ["󰕿", "󰖀", "󰕾"],
     },
-    "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e wiremix'"
+    "on-click": "hyprctl dispatch exec '[float; size 600 450; center] kitty -e wiremix'",
   },
   "pulseaudio/slider#audio": {
     "min": 0,
     "max": 100,
-    "orientation": "horizontal"
+    "orientation": "horizontal",
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",
@@ -180,7 +152,7 @@
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
-    "scroll-step": 5
+    "scroll-step": 5,
   },
   "bluetooth": {
     "format": "",
@@ -189,14 +161,14 @@
     "tooltip-format": "{controller_alias}\t{controller_address}",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e bluetui'"
+    "on-click": "hyprctl dispatch exec '[float; size 800 600; center] kitty -e bluetui'",
   },
   "custom/language": {
     "exec": "~/.config/waybar/scripts/kb_layout.sh",
     "return-type": "json",
     "interval": 1,
     "on-click": "hyprctl switchxkblayout all next",
-    "format": "{}"
+    "format": "{}",
   },
   "custom/clipboard": {
     "format": "{}",
@@ -207,11 +179,12 @@
     "on-click": "~/.config/waybar/scripts/cliphist.sh --list",
     "on-click-middle": "~/.config/waybar/scripts/cliphist.sh --delete",
     "on-click-right": "~/.config/waybar/scripts/cliphist.sh --wipe",
-    "tooltip": true
+    "tooltip": true,
+    "tooltip-format": "Right Click to Clear",
   },
   "custom/power": {
     "format": "",
     "on-click": "~/.config/waybar/scripts/power_menu.sh",
-    "tooltip": false
-  }
+    "tooltip": false,
+  },
 }

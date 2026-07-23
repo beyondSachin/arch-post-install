@@ -10,6 +10,7 @@ ALACRITTY_CONFIG="$HOME/.config/alacritty"
 FISH_CONFIG="$HOME/.config/fish"
 ZELLIJ_CONFIG="$HOME/.config/zellij"
 SUPERFILE_CONFIG="$HOME/.config/superfile"
+OHMYPOSH_CONFIG="$HOME/.config/ohmyposh"
 THEME_STATE="$HOME/.cache/theme_mode"
 
 # Get current color scheme
@@ -58,6 +59,11 @@ if [ "$CURRENT_SCHEME" == "'prefer-dark'" ]; then
   # Fish colors
   cp "$FISH_CONFIG/themes/light.fish" "$FISH_CONFIG/conf.d/theme.fish"
   fish -c "source $FISH_CONFIG/conf.d/theme.fish"
+
+  # Oh My Posh colors
+  if [ -d "$OHMYPOSH_CONFIG" ]; then
+    cp "$OHMYPOSH_CONFIG/latte.omp.json" "$OHMYPOSH_CONFIG/theme.json" 2>/dev/null || true
+  fi
 
   # Wallpaper
   hyprctl hyprpaper preload "$HOME/.config/hypr/assets/Arch-Light.png" 2>/dev/null || true
@@ -131,6 +137,11 @@ else
   # Fish colors
   cp "$FISH_CONFIG/themes/dark.fish" "$FISH_CONFIG/conf.d/theme.fish"
   fish -c "source $FISH_CONFIG/conf.d/theme.fish"
+
+  # Oh My Posh colors
+  if [ -d "$OHMYPOSH_CONFIG" ]; then
+    cp "$OHMYPOSH_CONFIG/mocha.omp.json" "$OHMYPOSH_CONFIG/theme.json" 2>/dev/null || true
+  fi
 
   # Wallpaper
   hyprctl hyprpaper preload "$HOME/.config/hypr/assets/Arch-Dark.png" 2>/dev/null || true
